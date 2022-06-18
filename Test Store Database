@@ -1,0 +1,22 @@
+create table vitamins (id INTEGER PRIMARY KEY, name TEXT, location INTEGER, price INTEGER, profit INTEGER);
+insert into vitamins values(1, "Vitamin A", 3, 15, 11);
+insert into vitamins values (2, "Vitamin B", 5, 13, 10);
+insert into vitamins values (3, "Vitamin C", 6, 10, 8);
+insert into vitamins values (4, "Vitamin D 1000IU", 8, 11, 9);
+insert into vitamins values (5, "Vitamin D 2000IU", 9, 13, 10);
+insert into vitamins values (6, "Vitamin E", 10, 11, 19);
+insert into vitamins values (7, "Melatonin 5mg", 11, 12, 9);
+insert into vitamins values (8, "Melatonin 10mg", 12, 15,10);
+insert into vitamins values (9, "folic acid", 13, 20, 9);
+insert into vitamins values (10, "Areyoureadingthis", 15, 10, 8);
+insert into vitamins values (11, "Madeupname", 16, 20, 9);
+insert into vitamins values (12, "Ashuaganda", 20, 90,85);
+insert into vitamins values (13, "Powerade", 90, 8,5);
+insert into vitamins values (14, "Vicks", 80, 7,5);
+insert into vitamins values (15, "Empanadas", 1, 4,2);
+
+select * from vitamins where profit >5;
+
+select name, max(profit) from vitamins;
+
+
