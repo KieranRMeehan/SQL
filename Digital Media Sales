@@ -1,0 +1,79 @@
+select * from customers where country <> "USA";
+
+select * from customers where country = "Brazil";
+
+select customers.firstname, customers.lastname, invoiceid, invoicedate, billingcountry 
+from invoices
+join customers
+on customers.customerid = invoices.CustomerId
+where customers.Country = "Brazil";
+
+select * from employees where title = "Sales Support Agent";
+
+select distinct billingcountry from invoices;
+
+
+select invoices.InvoiceId, employees.FirstName, employees.LastName
+from invoices
+join employees on employees.EmployeeId = customers.SupportRepId
+join customers on customers.CustomerId = invoices.CustomerId;
+
+SELECT emp.LastName, emp.Firstname, cust.FirstName, cust.LastName, cust.Country, inv.total
+FROM chinook.employees emp 
+JOIN chinook.Customers cust ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv ON Inv.CustomerId = cust.CustomerId;
+
+select count (*) from invoices
+where invoicedate between '2009-01-01' and '2009-12-31';
+
+select sum (quantity * unitprice) 
+from invoice_items
+join invoices
+on invoices.InvoiceId = invoice_items.InvoiceId
+where invoices.InvoiceDate between '2009-01-01' and '2009-12-31';
+
+select tracks.Name, invoicelineid from invoice_items
+join tracks
+on tracks.TrackId = invoice_items.TrackId;
+
+select tracks.Name, tracks.composer, invoicelineid from invoice_items
+join tracks
+on tracks.TrackId = invoice_items.TrackId;
+
+select name, albums.title, media_types.name, genres.GenreId
+from tracks
+join albums on albums.AlbumId = tracks.AlbumId
+join media_types on media_types.MediaTypeId = tracks.MediaTypeId
+join genres on genres.GenreId = tracks.GenreId;
+
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM chinook.Employees emp
+JOIN chinook.Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY emp.FirstName;
+
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM chinook.Employees emp
+JOIN chinook.Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+WHERE emp.Title = 'Sales Support Agent' 
+AND Inv.InvoiceDate LIKE '2009%' 
+GROUP BY emp.FirstName
+ORDER BY (round(sum(Inv.Total), 2))  DESC LIMIT 1;
+
+select composer, count (invoice_items.InvoiceLineId)
+from tracks
+join invoice_items
+on tracks.TrackId = invoice_items.TrackId
+where composer <> "NULL"
+group by composer
+order by count(invoice_items.InvoiceLineId) desc
+limit 5;
+
